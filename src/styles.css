@@ -1,0 +1,425 @@
+:root {
+  --blue: #1d4ed8;
+  --green: #15803d;
+  --red: #b91c1c;
+  --muted: #64748b;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+body {
+  background: #eef2f7; /* only visible as letterboxing around the 16:9 frame on wide screens */
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+}
+
+/* ---------- App frame: white, height : width = 16 : 9 ---------- */
+.frame {
+  position: relative; /* the context menu and the confirm dialog are positioned inside the frame */
+  width: min(100vw, calc(100vh * 9 / 16));
+  width: min(100vw, calc(100dvh * 9 / 16));
+  aspect-ratio: 9 / 16;
+  container-type: inline-size; /* everything inside scales with the frame via cqw */
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(15, 23, 42, 0.12);
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 6cqw 5cqw 1cqw;
+}
+
+.head h1 {
+  margin: 0;
+  font-size: 7cqw;
+  letter-spacing: -0.02em;
+  color: var(--blue);
+}
+
+.meta {
+  font-size: 3.2cqw;
+  color: var(--muted);
+}
+
+.hint {
+  margin: 0;
+  padding: 0 5cqw 3cqw;
+  font-size: 3.5cqw;
+  color: var(--muted);
+}
+
+.list {
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+  padding: 0 5cqw 2cqw;
+  list-style: none;
+  position: relative; /* offsetParent for the reorder animation */
+  overflow-y: auto;
+  overflow-x: hidden; /* hides the card while it flies off to the side */
+}
+
+.list li.fresh {
+  animation: pop-in 0.35s ease backwards;
+}
+
+/* Hint row shown right above the completed tasks */
+.list-hint {
+  padding: 3cqw 0 1cqw;
+  font-size: 3.5cqw;
+  color: var(--muted);
+}
+
+.empty {
+  padding: 6cqw 0;
+  text-align: center;
+  font-size: 3.4cqw;
+  color: var(--muted);
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---------- To-do card ---------- */
+/* The wrapper is the touch target (bigger than the card) and the container for cqw units */
+.card-wrap {
+  container-type: inline-size;
+  padding-block: 1.6cqw;
+  touch-action: pan-y; /* vertical scroll stays native, horizontal swipe is ours */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 1; /* height : width = 1 : 9 */
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: #fff;
+  color: var(--blue);
+  border: 2px solid var(--blue);
+  border-radius: 1.4cqw;
+  font-size: 3.5cqw; /* scales with the card, so text always fits the card height */
+  font-weight: 700;
+  line-height: 1;
+  cursor: grab;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+/* Live swipe overlay.
+   Complete (pending card, right → left): green at the right edge → white at the finger. */
+.fill {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 0;
+  background: linear-gradient(to left, var(--green), #fff);
+  pointer-events: none;
+}
+
+/* Undo (completed card, left → right): the mirror image – white at the left edge → green at the finger. */
+.fill--undo {
+  right: auto;
+  left: 0;
+  background: linear-gradient(to right, #fff, var(--green));
+}
+
+.label {
+  position: relative; /* above the fill */
+  z-index: 1;
+  min-width: 0;
+  max-width: 100%;
+  padding-inline: 2.2cqw;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: ellipsis;
+}
+
+/* Two stacked copies of the label used only while an undo swipe is in progress:
+   one clipped to the left of the finger (blue), one to the right (white). */
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* .layer--ink {
+  color: var(--blue); blue font appears while transition
+} */ 
+
+/* Completed: white text on solid green, centered */
+.card--done {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+  justify-content: center;
+}
+
+/* Send the card off to the right … */
+.card--exiting {
+  transform: translateX(120%);
+  transition: transform 420ms cubic-bezier(0.5, 0, 0.75, 0); /* keep in sync with EXIT_MS */
+}
+
+/* … then bring it back in at its new spot below the pending tasks */
+.card--entering {
+  animation: slide-in 380ms cubic-bezier(0.2, 0.8, 0.2, 1) 140ms backwards;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(120%);
+  }
+}
+
+/* Undo is the same animation mirrored: out to the LEFT, back in from the LEFT */
+.card--exiting.card--to-left {
+  transform: translateX(-120%);
+}
+
+.card--entering.card--from-left {
+  animation-name: slide-in-left;
+}
+
+@keyframes slide-in-left {
+  from {
+    transform: translateX(-120%);
+  }
+}
+
+/* Inline editing */
+.card--editing {
+  cursor: text;
+  box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.25);
+}
+
+.card--done.card--editing {
+  box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.3);
+}
+
+.edit {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding-inline: 2.2cqw;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 3.5cqw; /* ≥16px stops iOS zooming on focus */
+  text-align: inherit;
+}
+
+.card--done .edit {
+  text-align: center;
+}
+
+/* ---------- Right-click drop-down ---------- */
+.menu {
+  position: absolute;
+  z-index: 20;
+  min-width: 34cqw;
+  display: flex;
+  flex-direction: column;
+  padding: 1.2cqw;
+  background: #fff;
+  border: 2px solid var(--blue);
+  border-radius: 2.4cqw;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18);
+  animation: fade-in 0.12s ease;
+}
+
+.menu button {
+  font: inherit;
+  font-size: max(14px, 3.6cqw);
+  text-align: left;
+  padding: 2.4cqw 3cqw;
+  border: 0;
+  border-radius: 1.6cqw;
+  background: transparent;
+  color: var(--blue);
+  cursor: pointer;
+}
+
+.menu button:hover,
+.menu button:focus-visible {
+  background: #eaf0ff;
+  outline: none;
+}
+
+.menu .menu__danger {
+  color: var(--red);
+}
+
+.menu .menu__danger:hover,
+.menu .menu__danger:focus-visible {
+  background: #fee2e2;
+}
+
+/* ---------- Delete confirmation ---------- */
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  padding: 6cqw;
+  background: rgba(15, 23, 42, 0.45);
+  animation: fade-in 0.15s ease;
+}
+
+.dialog {
+  width: 100%;
+  padding: 5cqw;
+  background: #fff;
+  border: 2px solid var(--blue);
+  border-radius: 3cqw;
+  box-shadow: 0 16px 48px rgba(15, 23, 42, 0.3);
+  animation: pop-in 0.18s ease;
+}
+
+.dialog p {
+  margin: 0 0 5cqw;
+  font-size: max(15px, 4cqw);
+  line-height: 1.45;
+  color: #0f172a;
+  overflow-wrap: anywhere; /* very long task names must not break the layout */
+}
+
+.dialog strong {
+  color: var(--blue);
+}
+
+.dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2.5cqw;
+}
+
+.btn {
+  font: inherit;
+  font-size: max(15px, 3.8cqw);
+  font-weight: 600;
+  padding: 2.2cqw 4.5cqw;
+  border: 2px solid var(--blue);
+  border-radius: 2.4cqw;
+  background: #fff;
+  color: var(--blue);
+  cursor: pointer;
+}
+
+.btn--danger {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+
+.btn:focus-visible {
+  outline: 3px solid rgba(29, 78, 216, 0.35);
+  outline-offset: 2px;
+}
+
+/* ---------- Add-task row ---------- */
+.add {
+  display: flex;
+  gap: 2.5cqw;
+  padding: 3cqw 5cqw 5cqw;
+  border-top: 1px solid #e2e8f0;
+}
+
+.add input,
+.add button {
+  font: inherit;
+  font-size: max(16px, 3.6cqw); /* ≥16px stops iOS zooming on focus */
+  border: 2px solid var(--blue);
+  border-radius: 2.4cqw;
+}
+
+.add input {
+  flex: 1;
+  min-width: 0;
+  padding: 2.4cqw 3cqw;
+  background: #fff;
+  color: var(--blue);
+  outline: none;
+}
+
+.add input::placeholder {
+  color: #8da2e0;
+}
+
+.add input:focus-visible {
+  box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.25);
+}
+
+.add button {
+  padding: 0 4cqw;
+  background: var(--blue);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.add button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card--exiting {
+    transition-duration: 1ms;
+  }
+  .card--entering,
+  .list li.fresh,
+  .menu,
+  .backdrop,
+  .dialog {
+    animation-duration: 1ms;
+    animation-delay: 0s;
+  }
+}
