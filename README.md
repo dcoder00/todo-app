@@ -89,29 +89,13 @@ Claude also flagged a potential usability issue in my prompt: a card with a 1:18
 
 ### Results
 
-#### 1. Initial interface
+| 1. Initial interface                                      | 2. Swipe gradient                                           |
+| --------------------------------------------------------- | ----------------------------------------------------------- |
+| ![Initial interface](screenshots/session-1-interface.png) | ![Swipe gradient](screenshots/session-1-swipe-gradient.png) |
 
-<!-- TODO: Add the screenshot showing the initial task cards. -->
-
-![Initial interface](screenshots/session-1-interface.png)
-
-#### 2. Swipe gradient
-
-<!-- TODO: Add a screenshot showing the green-to-white gradient during a swipe. -->
-
-![Swipe gradient](screenshots/session-1-swipe-gradient.png)
-
-#### 3. Completed task
-
-<!-- TODO: Add a screenshot showing the completed task and its new position. -->
-
-![Completed task](screenshots/session-1-completed.png)
-
-#### 4. Add-task feature
-
-<!-- TODO: Add a screenshot showing the add-task input. -->
-
-![Add-task feature](screenshots/session-1-add-task.png)
+| 3. Completed task                                      | 4. Add-task feature                                     |
+| ------------------------------------------------------ | ------------------------------------------------------- |
+| ![Completed task](screenshots/session-1-completed.png) | ![Add-task feature](screenshots/session-1-add-task.png) |
 
 ### My Evaluation
 
@@ -132,9 +116,7 @@ Rather than asking the AI to make every visual adjustment, I changed several CSS
 
 These were subjective UI refinements based on inspecting the rendered result. They were also a useful opportunity to make small, targeted changes to AI-generated CSS directly.
 
-<!-- TODO: Add a before/after screenshot showing the card-size and typography changes. -->
-
-![Manual UI refinements](screenshots/session-1-manual-refinements.png)
+<img src="screenshots/session-1-manual-refinements.png" width="250" alt="Manual UI refinements" />
 
 ### What I Took Away
 
@@ -203,29 +185,13 @@ Claude also highlighted a platform limitation: right-click is not a reliable way
 
 ### Results
 
-#### 1. Context menu
+| 1. Context menu                                         | 2. Inline editing                                      |
+| ------------------------------------------------------- | ------------------------------------------------------ |
+| ![Context menu](screenshots/session-2-context-menu.png) | ![Inline editing](screenshots/session-2-edit-task.png) |
 
-<!-- TODO: Add a screenshot of the Edit task / Delete task menu. -->
-
-![Context menu](screenshots/session-2-context-menu.png)
-
-#### 2. Inline editing
-
-<!-- TODO: Add a screenshot showing a task being edited. -->
-
-![Inline editing](screenshots/session-2-edit-task.png)
-
-#### 3. Delete confirmation dialog
-
-<!-- TODO: Add a screenshot of the confirmation dialog. -->
-
-![Delete confirmation](screenshots/session-2-delete-dialog.png)
-
-#### 4. Undo completion
-
-<!-- TODO: Add a screenshot of the reverse swipe interaction. -->
-
-![Undo completion](screenshots/session-2-undo-completion.png)
+| 3. Delete confirmation dialog                                   | 4. Undo completion                                            |
+| --------------------------------------------------------------- | ------------------------------------------------------------- |
+| ![Delete confirmation](screenshots/session-2-delete-dialog.png) | ![Undo completion](screenshots/session-2-undo-completion.png) |
 
 ### My Evaluation
 
@@ -248,10 +214,9 @@ I made the following adjustments:
 - Changed the editing cursor behavior so the cursor would start at the end of the task name rather than selecting the entire text.
 - Continued refining the text colour behavior during the undo swipe.
 
-<!-- TODO: Add before/after screenshots for the editing behavior and undo-swipe text colour. -->
-
-![Manual fixes-1](screenshots/session-2-manual-fixes-1.png)
-![Manual fixes-2](screenshots/session-2-manual-fixes-2.png)
+| Edit feature changed                                        | Font colour change                                          |
+| ----------------------------------------------------------- | ----------------------------------------------------------- |
+| ![Manual fixes-1](screenshots/session-2-manual-fixes-1.png) | ![Manual fixes-2](screenshots/session-2-manual-fixes-2.png) |
 
 ### What I Took Away
 
