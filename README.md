@@ -12,9 +12,7 @@ I welcome feedback on the prompts, implementation, and overall user experience. 
 
 ## Project Preview
 
-<!-- TODO: Add a screenshot of the final application -->
-
-![Swipe To-do App — application preview](screenshots/app-preview.png)
+<img src="screenshots/app-preview.png" width="50%" alt="Manual UI refinements" />
 
 ## Current Features
 
@@ -307,7 +305,7 @@ This project is an ongoing exploration of AI-assisted frontend development. Sugg
 
 ## Author
 
-**[Your Name]**
+**[Tanay Doble]**
 
-- GitHub: [Your GitHub Profile](YOUR_GITHUB_PROFILE_URL)
-- Project: [Repository Link](YOUR_REPOSITORY_URL)
+- GitHub: [Your GitHub Profile](https://github.com/dcoder00)
+- Project: [Repository Link](https://github.com/dcoder00/todo-app)
