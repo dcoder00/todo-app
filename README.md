@@ -116,7 +116,7 @@ Rather than asking the AI to make every visual adjustment, I changed several CSS
 
 These were subjective UI refinements based on inspecting the rendered result. They were also a useful opportunity to make small, targeted changes to AI-generated CSS directly.
 
-<img src="screenshots/session-1-manual-refinements.png" width="250" alt="Manual UI refinements" />
+<img src="screenshots/session-1-manual-refinements.png" width="50%" alt="Manual UI refinements" />
 
 ### What I Took Away
 
