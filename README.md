@@ -13,6 +13,7 @@ I welcome feedback on the prompts, implementation, and overall user experience. 
 ## Project Preview
 
 <!-- TODO: Add a screenshot of the final application -->
+
 ![Swipe To-do App — application preview](screenshots/app-preview.png)
 
 ## Current Features
@@ -91,21 +92,25 @@ Claude also flagged a potential usability issue in my prompt: a card with a 1:18
 #### 1. Initial interface
 
 <!-- TODO: Add the screenshot showing the initial task cards. -->
+
 ![Initial interface](screenshots/session-1-interface.png)
 
 #### 2. Swipe gradient
 
 <!-- TODO: Add a screenshot showing the green-to-white gradient during a swipe. -->
+
 ![Swipe gradient](screenshots/session-1-swipe-gradient.png)
 
 #### 3. Completed task
 
 <!-- TODO: Add a screenshot showing the completed task and its new position. -->
+
 ![Completed task](screenshots/session-1-completed.png)
 
 #### 4. Add-task feature
 
 <!-- TODO: Add a screenshot showing the add-task input. -->
+
 ![Add-task feature](screenshots/session-1-add-task.png)
 
 ### My Evaluation
@@ -128,6 +133,7 @@ Rather than asking the AI to make every visual adjustment, I changed several CSS
 These were subjective UI refinements based on inspecting the rendered result. They were also a useful opportunity to make small, targeted changes to AI-generated CSS directly.
 
 <!-- TODO: Add a before/after screenshot showing the card-size and typography changes. -->
+
 ![Manual UI refinements](screenshots/session-1-manual-refinements.png)
 
 ### What I Took Away
@@ -155,7 +161,7 @@ Extend the app while preserving the existing implementation and the manual UI ch
 
 ### My Prompt
 
-> *(I attached the updated project ZIP.)*
+> _(I attached the updated project ZIP.)_
 >
 > Great work! I made some changes at my end. Review them and then continue with the below instructions.
 >
@@ -200,21 +206,25 @@ Claude also highlighted a platform limitation: right-click is not a reliable way
 #### 1. Context menu
 
 <!-- TODO: Add a screenshot of the Edit task / Delete task menu. -->
+
 ![Context menu](screenshots/session-2-context-menu.png)
 
 #### 2. Inline editing
 
 <!-- TODO: Add a screenshot showing a task being edited. -->
+
 ![Inline editing](screenshots/session-2-edit-task.png)
 
 #### 3. Delete confirmation dialog
 
 <!-- TODO: Add a screenshot of the confirmation dialog. -->
+
 ![Delete confirmation](screenshots/session-2-delete-dialog.png)
 
 #### 4. Undo completion
 
 <!-- TODO: Add a screenshot of the reverse swipe interaction. -->
+
 ![Undo completion](screenshots/session-2-undo-completion.png)
 
 ### My Evaluation
@@ -239,7 +249,9 @@ I made the following adjustments:
 - Continued refining the text colour behavior during the undo swipe.
 
 <!-- TODO: Add before/after screenshots for the editing behavior and undo-swipe text colour. -->
-![Manual fixes](screenshots/session-2-manual-fixes.png)
+
+![Manual fixes-1](screenshots/session-2-manual-fixes-1.png)
+![Manual fixes-2](screenshots/session-2-manual-fixes-2.png)
 
 ### What I Took Away
 
@@ -262,17 +274,17 @@ The next planned features are:
 
 These are the main implementation choices visible in the current version of the project.
 
-| Area | Current approach |
-| --- | --- |
-| UI | React components styled with CSS |
-| Task state | React state in `App.jsx` |
-| Persistence | Browser `localStorage` |
-| Completion | Pointer-based right-to-left swipe |
-| Undo | Pointer-based left-to-right swipe |
-| Editing | Inline task-name editor |
-| Deletion | Context menu followed by a confirmation dialog |
-| Reordering | Completed and pending tasks are grouped, with animated transitions |
-| Keyboard support | Enter or Space completes/undoes a focused task |
+| Area             | Current approach                                                   |
+| ---------------- | ------------------------------------------------------------------ |
+| UI               | React components styled with CSS                                   |
+| Task state       | React state in `App.jsx`                                           |
+| Persistence      | Browser `localStorage`                                             |
+| Completion       | Pointer-based right-to-left swipe                                  |
+| Undo             | Pointer-based left-to-right swipe                                  |
+| Editing          | Inline task-name editor                                            |
+| Deletion         | Context menu followed by a confirmation dialog                     |
+| Reordering       | Completed and pending tasks are grouped, with animated transitions |
+| Keyboard support | Enter or Space completes/undoes a focused task                     |
 
 ### Component Structure
 
@@ -332,5 +344,5 @@ This project is an ongoing exploration of AI-assisted frontend development. Sugg
 
 **[Your Name]**
 
-- GitHub: [Your GitHub Profile](<YOUR_GITHUB_PROFILE_URL>)
-- Project: [Repository Link](<YOUR_REPOSITORY_URL>)
+- GitHub: [Your GitHub Profile](YOUR_GITHUB_PROFILE_URL)
+- Project: [Repository Link](YOUR_REPOSITORY_URL)
